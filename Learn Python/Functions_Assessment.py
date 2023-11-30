@@ -91,8 +91,195 @@ print(new_macdonald('macdonald'))
 def master_yoda(sentence):
     result = sentence.split()
     var = result[::-1]
-    return var
+    return ' '.join(var)
 
 
 print(master_yoda('I am home'))
 print(master_yoda('We are ready'))
+
+
+# ALMOST THERE: Given an integer n, return True if n is within 10 of either 100 or 200
+# almost_there(90) --> True
+# almost_there(104) --> True
+# almost_there(150) --> False
+# almost_there(209) --> True
+# NOTE: abs(num) returns the absolute value of a number
+def almost_there(n):
+    return (abs(100 - n) <= 10) or (abs(200 - n) <= 10)
+    #     return True
+    # else:
+    #     return False
+
+
+print(almost_there(90))
+print(almost_there(104))
+print(almost_there(150))
+
+
+# LEVEL 2 PROBLEMS
+# FIND 33:
+# Given a list of ints, return True if the array contains a 3 next to a 3 somewhere.
+#
+# has_33([1, 3, 3]) → True
+# has_33([1, 3, 1, 3]) → False
+# has_33([3, 1, 3]) → False
+def has_33(nums):
+    for i in range(0, len(nums) - 1):
+        if nums[i] == 3 and nums[i + 1] == 3:
+            return True
+    return False
+
+
+# print(items)
+
+
+print("'''''''''''''''''''''''''''''''")
+print(has_33([1, 3, 1, 3]))
+print(has_33([1, 3, 3]))
+
+
+# PAPER DOLL: Given a string, return a string where for every character in the original
+# there are three characters
+# paper_doll('Hello') --> 'HHHeeellllllooo'
+# paper_doll('Mississippi') --> 'MMMiiissssssiiippppppiii'
+def paper_doll(text):
+    mylist = [i * 3 for i in text]
+    return ' '.join(mylist)
+
+
+print("''''''''''''''''''''''''")
+print(paper_doll("Hello"))
+print(paper_doll('Mississippi'))
+
+
+# BLACKJACK: Given three integers between 1 and 11, if their sum is less than or equal to 21,
+# return their sum. If their sum exceeds 21 and there's an eleven, reduce the total sum by 10.
+# Finally, if the sum (even after adjustment) exceeds 21, return 'BUST'
+# blackjack(5,6,7) --> 18
+# blackjack(9,9,9) --> 'BUST'
+# blackjack(9,9,11) --> 19
+def blackjack(a, b, c):
+    reduced_value = 0
+    for i in a, b, c:
+        if sum([a + b + c]) <= 21:
+            return a + b + c
+        elif sum([a + b + c]) > 21 and ((a == 11) or (b == 11) or (c == 11)):
+
+            reduced_value = sum([a + b + c]) - 10
+            return reduced_value
+
+        elif reduced_value > 21:
+            pass
+    return "BUST"
+
+
+print(blackjack(5, 6, 7))
+print(blackjack(9, 9, 9))
+print(blackjack(9, 9, 11))
+
+
+# SUMMER OF '69: Return the sum of the numbers in the array,
+# except ignore sections of numbers starting with a 6
+# and extending to the next 9 (every 6 will be followed by at least one 9). Return 0 for no numbers.
+# summer_69([1, 3, 5]) --> 9
+# summer_69([4, 5, 6, 7, 8, 9]) --> 9
+# summer_69([2, 1, 6, 9, 11]) --> 14
+def summer_69(arr):
+    my_list = 0
+    if not arr:
+        return 0
+    for nums in arr:
+        if nums <= 5 or nums > 9:
+            my_list += nums
+    return my_list
+
+
+print(summer_69([1, 3, 5]))
+print(summer_69([4, 5, 6, 7, 8, 9]))
+print(summer_69([2, 1, 6, 9, 11]))
+
+
+# SPY GAME: Write a function that takes in a list of integers and
+# returns True if it contains 007 in order
+#  spy_game([1,2,4,0,0,7,5]) --> True
+#  spy_game([1,0,2,4,0,5,7]) --> True
+#  spy_game([1,7,2,0,4,5,0]) --> False
+
+
+def spy_game(nums):
+    counter = 0
+    for i in nums:
+        if i == 0:
+            counter += 1
+        if i == 7 and counter == 2:
+            return True
+    return False
+
+print('SPY GAMES')
+print(spy_game([0, 2, 4, 0, 0, 7,0]))
+print(spy_game([1, 0, 2, 4, 0, 5, 7]))
+print(spy_game([1, 7, 2, 0, 4, 5, 0]))
+
+
+# COUNT PRIMES: Write a function that returns the number of prime numbers that exist up to
+# and including a given number
+# count_primes(100) --> 25
+# By convention, 0 and 1 are not prime.
+
+
+def count_primes2(num):
+    primes = [2]
+    x = 3
+    if num < 2:
+        return 0
+    while x <= num:
+        for y in primes:  # use the primes list!
+            if x % y == 0:
+                x += 2
+                break
+        else:
+            primes.append(x)
+            x += 2
+    print(primes)
+    return len(primes)
+
+
+def count_primes3(num):
+    primes = [2]
+    x = 3
+    if num < 2:  # for the case of num = 0 or 1
+        return 0
+    while x <= num:
+        for y in range(3, x, 2):  # test all odd factors up to x-1
+            if x % y == 0:
+                x += 2
+                break
+        else:
+            primes.append(x)
+            x += 2
+    print(primes)
+    return len(primes)
+
+
+def count_primes(num):
+    primes = [2]
+    candidates = 3
+    if num < 2:
+        return 0
+    while candidates <= num:
+        for items in range(3, candidates, 2):
+            if candidates % items == 0:
+                candidates += 2
+                break
+        else:
+            primes.append(candidates)
+            candidates += 2
+    print(primes)
+    return len(primes)
+
+
+print("''''''''''''''''''''''''")
+print(count_primes(0))
+print(count_primes(1))
+print(count_primes(2))
+print(count_primes(100))
