@@ -1,0 +1,14 @@
+from IPython.display import (clear_output)
+
+
+def display_board(board):
+    print(board[7] + '|' + board[8] + '|' + board[9])
+    print(board[4] + '|' + board[5] + '|' + board[6])
+    print(board[7] + '|' + board[2] + '|' + board[3])
+
+
+test_board = ['#', 'x', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X']
+display_board(test_board)
+print('=====')
+clear_output()
+display_board(test_board)
